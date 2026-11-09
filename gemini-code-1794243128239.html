@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>شات فرعون - الغرفة الرئيسية</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        body {
+            background-color: #0d0d0d;
+            color: #ffffff;
+            text-align: center;
+            padding: 15px;
+        }
+
+        header {
+            margin-bottom: 15px;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 900;
+            color: #ffb703;
+            text-shadow: 0 0 10px rgba(255, 183, 3, 0.3);
+        }
+
+        .sub-title {
+            font-size: 14px;
+            color: #aaa;
+            margin-top: 4px;
+        }
+
+        /* عنوان الغرفة الحالية */
+        .active-room-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #ffb703;
+            margin-bottom: 8px;
+            display: inline-block;
+            background: #1a1a1a;
+            padding: 4px 16px;
+            border-radius: 20px;
+            border: 1px solid #333;
+        }
+
+        /* علبة الشات الرئيسية */
+        .chat-box {
+            max-width: 900px;
+            margin: 0 auto 25px;
+            background: #161616;
+            border: 2px solid #282828;
+            border-radius: 8px;
+            padding: 6px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.8);
+        }
+
+        .chat-box iframe {
+            width: 100%;
+            height: 490px;
+            border: none;
+            border-radius: 4px;
+            display: block;
+        }
+
+        /* قسم غرف البلاد والأقسام */
+        .section-header {
+            font-size: 18px;
+            font-weight: 700;
+            color: #ffb703;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #222;
+            padding-bottom: 8px;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .rooms-list {
+            max-width: 900px;
+            margin: 0 auto 30px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 10px;
+        }
+
+        .room-btn {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 6px;
+            padding: 12px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .room-btn:hover {
+            background: #252525;
+            border-color: #ffb703;
+        }
+
+        .room-btn.active {
+            border-color: #ffb703;
+            background: #222;
+        }
+
+        .room-name {
+            font-size: 15px;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .room-users {
+            font-size: 12px;
+            color: #ffb703;
+            font-weight: bold;
+            background: rgba(255, 183, 3, 0.1);
+            padding: 2px 8px;
+            border-radius: 10px;
+        }
+
+        footer {
+            font-size: 12px;
+            color: #666;
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid #1a1a1a;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">شات فرعون</div>
+        <div class="sub-title">أكبر تجمع دردشة كتابية عربية - بدون تسجيل</div>
+    </header>
+
+    <!-- اسم الغرفة المفتوحة حالياً -->
+    <div class="active-room-title" id="currentRoomName">🟢 الغرفة الحالية: شات مصر (R5M)</div>
+
+    <!-- علبة الدردشة الرئيسي -->
+    <div class="chat-box">
+        <iframe id="mainChatFrame" src="https://xat.com/embed/chat.php#id=190106535&gn=R5M" allow="clipboard-write" scrolling="no"></iframe>
+    </div>
+
+    <!-- غرف البلاد والأقسام -->
+    <div class="section-header">اختر الغرفة أو الفرع للدخول</div>
+
+    <div class="rooms-list">
+        <div class="room-btn active" onclick="switchRoom('🇪🇬 شات مصر', 'https://xat.com/embed/chat.php#id=190106535&gn=R5M', this)">
+            <span class="room-name">🇪🇬 غُرفة مصر</span>
+            <span class="room-users">1,980 متصل</span>
+        </div>
+        <div class="room-btn" onclick="switchRoom('🇸🇦 شات السعودية', 'https://xat.com/embed/chat.php#id=190106535&gn=R5M', this)">
+            <span class="room-name">🇸🇦 غُرفة السعودية</span>
+            <span class="room-users">1,540 متصل</span>
+        </div>
+        <div class="room-btn" onclick="switchRoom('🇦🇪 شات الخليج', 'https://xat.com/embed/chat.php#id=190106535&gn=R5M', this)">
+            <span class="room-name">🇦🇪 غُرفة الخليج</span>
+            <span class="room-users">1,720 متصل</span>
+        </div>
+        <div class="room-btn" onclick="switchRoom('🇲🇦 شات المغرب', 'https://xat.com/embed/chat.php#id=190106535&gn=R5M', this)">
+            <span class="room-name">🇲🇦 غُرفة المغرب</span>
+            <span class="room-users">820 متصل</span>
+        </div>
+        <div class="room-btn" onclick="switchRoom('🇮🇶 شات العراق', 'https://xat.com/embed/chat.php#id=190106535&gn=R5M', this)">
+            <span class="room-name">🇮🇶 غُرفة العراق</span>
+            <span class="room-users">940 متصل</span>
+        </div>
+        <div class="room-btn" onclick="switchRoom('🎮 غرفة الجيمرز', 'https://xat.com/embed/chat.php#id=190106535&gn=R5M', this)">
+            <span class="room-name">🎮 غُرفة الجيمرز</span>
+            <span class="room-users">610 متصل</span>
+        </div>
+    </div>
+
+    <footer>
+        <p>شات فرعون © 2026 - جميع الحقوق محفوظة</p>
+    </footer>
+
+    <script>
+        // وظيفة التبديل عند الضغط على أي بلد
+        function switchRoom(roomTitle, chatUrl, element) {
+            // تحديث عنوان الغرفة
+            document.getElementById('currentRoomName').innerText = '🟢 الغرفة الحالية: ' + roomTitle;
+            
+            // إعادة تحميل الشات الرئيسي R5M
+            var frame = document.getElementById('mainChatFrame');
+            frame.src = chatUrl;
+
+            // تحديث الشكل النشط للزرار
+            document.querySelectorAll('.room-btn').forEach(btn => btn.classList.remove('active'));
+            element.classList.add('active');
+
+            // التمرير لأعلى للشات بسلاسة
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // عداد حركي لعدد المتصلين
+        setInterval(() => {
+            document.querySelectorAll('.room-users').forEach(span => {
+                let num = parseInt(span.innerText.replace(/,/g, ''));
+                let change = Math.floor(Math.random() * 5) - 2;
+                span.innerText = (num + change).toLocaleString() + " متصل";
+            });
+        }, 4000);
+    </script>
+
+</body>
+</html>
