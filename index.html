@@ -132,6 +132,18 @@
             border-radius: 10px;
             border: 1px solid #444;
         }
+
+        /* Fake Live Activity Toast */
+        #fake-ticker {
+            background: #1a1a1a;
+            border: 1px solid #ffcc00;
+            color: #ffcc00;
+            padding: 8px 15px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            text-align: center;
+            animation: fadeInOut 4s infinite;
+        }
     </style>
 </head>
 <body>
@@ -143,6 +155,9 @@
     </header>
 
     <div class="main-container">
+        <!-- Live Ticker for Fake Activity -->
+        <div id="fake-ticker">💬 [أحمد ميزو]: منورين الشات يا شباب، أجدع ناس!</div>
+
         <!-- Chat Frame -->
         <div class="chat-frame-wrapper">
             <iframe id="chatFrame" src="https://xat.com/embed/chat.php#id=220476483&gn=R5M" allowtransparency="true"></iframe>
@@ -151,52 +166,82 @@
         <!-- Section 1: Regional Rooms -->
         <div class="section-title">📌 أقسام غرف الدول العربية</div>
         <div class="rooms-grid">
-            <div class="room-card" onclick="switchRoom('🇪🇬 غرفة مصر', 'https://xat.com/embed/chat.php#id=220476483&gn=R5M')">
+            <div class="room-card" onclick="switchRoom('🇪🇬 غرفة مصر', 'https://xat.com/embed/chat.php#id=220476483&gn=R5M', 'مصر')">
                 <div class="room-info"><span class="flag">🇪🇬</span> غرفة مصر</div>
-                <div class="users-count">1,820 متصل</div>
+                <div class="users-count" id="count-egypt">1,820 متصل</div>
             </div>
-            <div class="room-card" onclick="switchRoom('🇸🇦 غرفة السعودية', 'https://xat.com/embed/chat.php#id=220476483&gn=R5M')">
+            <div class="room-card" onclick="switchRoom('🇸🇦 غرفة السعودية', 'https://xat.com/embed/chat.php#id=220476483&gn=R5M', 'السعودية')">
                 <div class="room-info"><span class="flag">🇸🇦</span> غرفة السعودية</div>
-                <div class="users-count">1,540 متصل</div>
+                <div class="users-count" id="count-ksa">1,540 متصل</div>
             </div>
-            <div class="room-card" onclick="switchRoom('🇦🇪 غرفة الخليج', 'https://xat.com/embed/chat.php#id=220476483&gn=R5M')">
+            <div class="room-card" onclick="switchRoom('🇦🇪 غرفة الخليج', 'https://xat.com/embed/chat.php#id=220476483&gn=R5M', 'الخليج')">
                 <div class="room-info"><span class="flag">🇦🇪</span> غرفة الخليج</div>
-                <div class="users-count">1,717 متصل</div>
+                <div class="users-count" id="count-gulf">1,717 متصل</div>
             </div>
-            <div class="room-card" onclick="switchRoom('🇲🇦 غرفة المغرب العربي', 'https://xat.com/embed/chat.php#id=220476483&gn=R5M')">
+            <div class="room-card" onclick="switchRoom('🇲🇦 غرفة المغرب العربي', 'https://xat.com/embed/chat.php#id=220476483&gn=R5M', 'المغرب')">
                 <div class="room-info"><span class="flag">🇲🇦</span> غرفة المغرب</div>
-                <div class="users-count">940 متصل</div>
+                <div class="users-count" id="count-morocco">940 متصل</div>
             </div>
         </div>
 
         <!-- Section 2: General & Entertainment -->
         <div class="section-title">🎮 أقسام الدردشة والتسلية</div>
         <div class="rooms-grid">
-            <div class="room-card" onclick="switchRoom('🎮 غرفة الجيمرز', 'https://xat.com/embed/chat.php#id=220476483&gn=R5M')">
+            <div class="room-card" onclick="switchRoom('🎮 غرفة الجيمرز', 'https://xat.com/embed/chat.php#id=220476483&gn=R5M', 'الجيمرز')">
                 <div class="room-info"><span class="flag">🎮</span> غرفة الجيمرز</div>
-                <div class="users-count">850 متصل</div>
+                <div class="users-count" id="count-games">850 متصل</div>
             </div>
-            <div class="room-card" onclick="switchRoom('⚽ غرفة الرياضة', 'https://xat.com/embed/chat.php#id=220476483&gn=R5M')">
+            <div class="room-card" onclick="switchRoom('⚽ غرفة الرياضة', 'https://xat.com/embed/chat.php#id=220476483&gn=R5M', 'الرياضة')">
                 <div class="room-info"><span class="flag">⚽</span> كافيه الكورة</div>
-                <div class="users-count">620 متصل</div>
+                <div class="users-count" id="count-sports">620 متصل</div>
             </div>
-            <div class="room-card" onclick="switchRoom('🎵 راديو وأغاني', 'https://xat.com/embed/chat.php#id=220476483&gn=R5M')">
+            <div class="room-card" onclick="switchPlayerMusic('🎵 راديو وأغاني', 'https://xat.com/embed/chat.php#id=220476483&gn=R5M')">
                 <div class="room-info"><span class="flag">🎵</span> راديو وشعبيات</div>
-                <div class="users-count">1,100 متصل</div>
+                <div class="users-count" id="count-radio">1,100 متصل</div>
             </div>
-            <div class="room-card" onclick="switchRoom('🔥 الروم العشوائي', 'https://xat.com/embed/chat.php#id=220476483&gn=R5M')">
+            <div class="room-card" onclick="switchRoom('🔥 الروم العشوائي', 'https://xat.com/embed/chat.php#id=220476483&gn=R5M', 'الفضفضة')">
                 <div class="room-info"><span class="flag">🔥</span> فضفضة وتعاريف</div>
-                <div class="users-count">1,430 متصل</div>
+                <div class="users-count" id="count-random">1,430 متصل</div>
             </div>
         </div>
     </div>
 
     <script>
-        function switchRoom(roomName, roomUrl) {
+        function switchRoom(roomName, roomUrl, country) {
             document.getElementById('chatFrame').src = roomUrl;
             document.getElementById('activeRoomTag').innerText = '🔴 الغرفة الحالية: ' + roomName;
             document.title = 'شات رخم كيك - ' + roomName;
         }
+
+        // Fake chat messages pool to simulate live guests typing inside the portal
+        const fakeMessages = [
+            "💬 [كريم إكس]: حد هنا من الإسكندرية؟",
+            "💬 [مروة الشاوية]: منورين أحلى شات رخم كيك 🔥",
+            "💬 [سلطان الكويتي]: السلام عليكم يا رجالة",
+            "💬 [بيبو الأسطورة]: السيرفر سريع جداً عاش يا صاحب الموقع",
+            "💬 [نور الفراعنة]: هو مين هنا مسيطر على الروم؟ 😂",
+            "💬 [وائل المصري]: صباح الفل على الناس المحترمة",
+            "💬 [رومانسية بدم بارد]: أحدث غرف الشات بجد تسلم ايدك"
+        ];
+
+        // Rotate fake messages every 5 seconds to give life vibe
+        setInterval(() => {
+            const randomMsg = fakeMessages[Math.floor(Math.random() * fakeMessages.length)];
+            document.getElementById('fake-ticker').innerText = randomMsg;
+        }, 5000);
+
+        // Dynamically fluctuate online users counters to look 100% organic and busy
+        setInterval(() => {
+            const counters = ['count-egypt', 'count-ksa', 'count-gulf', 'count-morocco', 'count-games', 'count-sports', 'count-radio', 'count-random'];
+            const randomId = counters[Math.floor(Math.random() * counters.length)];
+            const el = document.getElementById(randomId);
+            if(el) {
+                let currentNum = parseInt(el.innerText.replace(/[^0-9]/g, ''));
+                let change = Math.floor(Math.random() * 15) - 6; // up or down slightly
+                let newNum = currentNum + change;
+                el.innerText = newNum.toLocaleString() + " متصل";
+            }
+        }, 3000);
     </script>
 </body>
 </html>
